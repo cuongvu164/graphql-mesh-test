@@ -1,0 +1,51 @@
+# sources:
+#   - name: Post
+#     handler:
+#       openapi:
+#         baseUrl: https://jsonplaceholder.typicode.com/
+#         source: ./jsonplaceholder.json
+# transforms:
+#   - filterSchema:
+#       filters:
+#         - Query.!post
+  # - rename:
+  #     renames:
+  #       - from:
+  #           type: Query
+  #           field: categories
+  #         to:
+  #           type: Query
+  #           field: booksCategories
+
+sources:
+  - name: LofGraphql
+    handler:
+      openapi:
+        source: https://demo.landofcoder.com/index.php/rest/default/schema?services=all
+        baseUrl: https://demo.landofcoder.com/index.php/rest/default
+    transforms:
+      # - prefix:
+      #   mode: bare 
+      #   value: LofGraphql
+      # - mock:
+      #   mocks:
+      #     - apply: lofmpProductlistProductRepositoryV1GetRandomProductsGet.items.name
+      #       faker: '{{name.name}}'
+      # - resolversComposition:
+      #     mode: bare
+      #     compositions:
+      #       - resolver: 'Query.*'
+      #         composer: ./resolversComposition.js#isAuth
+      - replace-field:
+          typeDefs: |
+            type newCatalogDataProductSearchResultsInterface {
+              totalCount: String
+            }
+      # typeDefs: ./customTypeDefs.graphql # for conveniency, you can also pass a .graphql file
+          replacements:
+            - from:
+                type: CatalogDataProductSearchResultsInterface
+                field: totalCount
+              to:
+                type: newCatalogDataProductSearchResultsInterface
+                field: totalCount

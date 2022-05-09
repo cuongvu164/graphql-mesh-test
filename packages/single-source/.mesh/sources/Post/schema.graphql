@@ -1,0 +1,40 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  """
+  
+  
+  Equivalent to GET /posts
+  """
+  posts(
+    """
+    Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
+    """
+    limit: Int
+  ): [Post]
+}
+
+type Post {
+  body: String!
+  id: Int!
+  title: String!
+  userId: Int!
+}
+
+type Mutation {
+  """
+  
+  
+  Equivalent to POST /posts
+  """
+  appControllerPostPost(
+    body: String!
+    """
+    Auto-generated argument that limits the size of returned list of objects/list, selecting the first `n` elements of the list
+    """
+    limit: Int
+  ): [Post]
+}
